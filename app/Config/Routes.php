@@ -36,6 +36,38 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+$routes->get('login', 'Auth::index', ['as' => 'login']);
+$routes->get('register', 'Auth::register', ['as' => 'register']);
+$routes->get('activation', 'Auth::activation', ['as' => 'activation']);
+$routes->get('forgot_pwd', 'Auth::forgot_password', ['as' => 'forgot_password']);
+$routes->get('reset_pwd', 'Auth::reset_password', ['as' => 'reset_password']);
+
+$routes->group('superadmin', ['filter' => 'role:superadmin'], static function ($routes) {
+    $routes->get('dashboard', 'Superadmin::index', ['as' => 'dashboard']);
+    $routes->get('akses_pengguna', 'Superadmin::daftar_akses_pengguna', ['as' => 'daftar_pengguna']);
+    $routes->get('detail_pengguna/(:num)', 'Superadmin::detail_pengguna/$1', ['as' => 'detail_pengguna']);
+    $routes->get('buat_pengguna', 'Superadmin::buat_pengguna', ['as' => 'buat_pengguna']);
+    $routes->post('simpan_pengguna', 'Superadmin::simpan_pengguna', ['as' => 'simpan_pengguna']);
+    $routes->resource('kategori');
+    $routes->resource('tag');
+    $routes->resource('blog');
+    $routes->resource('produk');
+    $routes->resource('hadiah');
+});
+
+$routes->group('admin', ['filter' => 'role:admin,superadmin'], static function ($routes) {
+    $routes->get('kategori', 'Admin::index', ['as' => 'kategori']);
+    $routes->get('klaim_hadiah', 'Admin::index', ['as' => 'klaim_hadiah']);
+    $routes->get('reservasi', 'Admin::index', ['as' => 'reservasi']);
+});
+
+$routes->group('user', static function ($routes) {
+    $routes->get('profil', 'User::index', ['as' => 'profil']);
+    $routes->get('galeri_produk', 'User::index', ['as' => 'galeri']);
+    $routes->get('reservasi_pengguna', 'User::index', ['as' => 'reservasi_pengguna']);
+    $routes->get('hadiah_pengguna', 'User::index', ['as' => 'hadiah_pengguna']);
+});
+
 
 /*
  * --------------------------------------------------------------------
