@@ -41,7 +41,7 @@
                                              <label for="fullname" class="col-sm-3 col-form-label">Nama Lengkap</label>
                                              <div class="col-sm-9">
                                                   <input type="text" class="form-control <?php if (session('errors.fullname')) : ?>is-invalid<?php endif ?>" name="fullname" id="fullname" placeholder="John Doe">
-                                                  <?php if (session()->has('errors.fullname')) : ?>
+                                                  <?php if (session('errors.fullname')) : ?>
                                                        <div class="invalid-feedback">
                                                             <?= session('errors.fullname') ?>
                                                        </div>
@@ -51,19 +51,23 @@
                                         <div class="form-group row">
                                              <label for="email" class="col-sm-3 col-form-label">Email</label>
                                              <div class="col-sm-9">
-                                                  <input type="email" class="form-control <?php if (session('error')) : ?>is-invalid<?php endif ?>" name="email" id="email" placeholder="john@mail.com">
-                                                  <div class="invalid-feedback">
-
-                                                  </div>
+                                                  <input type="email" class="form-control <?php if (session('errors.email')) : ?>is-invalid<?php endif ?>" name="email" id="email" placeholder="john@mail.com">
+                                                  <?php if (session('errors.email')) : ?>
+                                                       <div class="invalid-feedback">
+                                                            <?= session('errors.email') ?>
+                                                       </div>
+                                                  <?php endif ?>
                                              </div>
                                         </div>
                                         <div class="form-group row">
                                              <label for="username" class="col-sm-3 col-form-label">Username</label>
                                              <div class="col-sm-9">
-                                                  <input type="text" class="form-control <?php if (session('error')) : ?>is-invalid<?php endif ?>" name="username" id="username" placeholder="john_doe">
-                                                  <div class="valid-feedback">
-
-                                                  </div>
+                                                  <input type="text" class="form-control <?php if (session('errors.username')) : ?>is-invalid<?php endif ?>" name="username" id="username" placeholder="john_doe">
+                                                  <?php if (session('errors.username')) : ?>
+                                                       <div class="invalid-feedback">
+                                                            <?= session('errors.username') ?>
+                                                       </div>
+                                                  <?php endif ?>
                                              </div>
                                         </div>
                                         <div class="form-group mb-0 row">
@@ -75,9 +79,6 @@
                                                             <option value="<?= $gr->name; ?>"><?= $gr->name; ?></option>
                                                        <?php endforeach; ?>
                                                   </select>
-                                                  <div class="invalid-feedback">
-
-                                                  </div>
                                              </div>
                                         </div>
                                    </div>

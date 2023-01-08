@@ -16,7 +16,7 @@ class UserModel extends Model
     protected $table          = 'users';
     protected $primaryKey     = 'id';
     protected $returnType     = User::class;
-    protected $useSoftDeletes = true;
+    protected $useSoftDeletes = false;
     protected $allowedFields  = [
         'email', 'username', 'fullname', 'password_hash', 'reset_hash', 'reset_at', 'reset_expires', 'activate_hash',
         'status', 'status_message', 'active', 'force_pass_reset', 'permissions', 'deleted_at',
@@ -25,8 +25,11 @@ class UserModel extends Model
     protected $validationRules = [
         'email'         => 'required|valid_email|is_unique[users.email,id,{id}]',
         'username'      => 'required|alpha_numeric_punct|min_length[3]|max_length[30]|is_unique[users.username,id,{id}]',
-        'fullname'         => 'required',
         'password_hash' => 'required',
+        'fullname' => [
+            'label' => 'Nama lengkap',
+            'rules' => 'required',
+        ],
     ];
     protected $validationMessages = [];
     protected $skipValidation     = false;

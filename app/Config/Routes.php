@@ -48,6 +48,8 @@ $routes->group('superadmin', ['filter' => 'role:superadmin'], static function ($
     $routes->get('detail_pengguna/(:num)', 'Superadmin::detail_pengguna/$1', ['as' => 'detail_pengguna']);
     $routes->get('buat_pengguna', 'Superadmin::buat_pengguna', ['as' => 'buat_pengguna']);
     $routes->post('simpan_pengguna', 'Superadmin::simpan_pengguna', ['as' => 'simpan_pengguna']);
+    $routes->get('hapus_pengguna/(:num)', 'Superadmin::hapus_pengguna/$1', ['as' => 'hapus_pengguna']);
+    $routes->get('resetpas_pengguna/(:num)', 'Superadmin::resetpas_pengguna/$1', ['as' => 'resetpas_pengguna']);
     $routes->resource('kategori');
     $routes->resource('tag');
     $routes->resource('blog');
@@ -56,13 +58,13 @@ $routes->group('superadmin', ['filter' => 'role:superadmin'], static function ($
 });
 
 $routes->group('admin', ['filter' => 'role:admin,superadmin'], static function ($routes) {
-    $routes->get('kategori', 'Admin::index', ['as' => 'kategori']);
     $routes->get('klaim_hadiah', 'Admin::index', ['as' => 'klaim_hadiah']);
     $routes->get('reservasi', 'Admin::index', ['as' => 'reservasi']);
 });
 
 $routes->group('user', static function ($routes) {
-    $routes->get('profil', 'User::index', ['as' => 'profil']);
+    $routes->get('profil', 'User::profil', ['as' => 'profil']);
+    $routes->post('gantipas_pengguna', 'User::gantipas_pengguna', ['as' => 'gantipas_pengguna']);
     $routes->get('galeri_produk', 'User::index', ['as' => 'galeri']);
     $routes->get('reservasi_pengguna', 'User::index', ['as' => 'reservasi_pengguna']);
     $routes->get('hadiah_pengguna', 'User::index', ['as' => 'hadiah_pengguna']);
