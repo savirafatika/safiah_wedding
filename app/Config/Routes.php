@@ -50,7 +50,7 @@ $routes->group('superadmin', ['filter' => 'role:superadmin'], static function ($
     $routes->post('simpan_pengguna', 'Superadmin::simpan_pengguna', ['as' => 'simpan_pengguna']);
     $routes->get('hapus_pengguna/(:num)', 'Superadmin::hapus_pengguna/$1', ['as' => 'hapus_pengguna']);
     $routes->get('resetpas_pengguna/(:num)', 'Superadmin::resetpas_pengguna/$1', ['as' => 'resetpas_pengguna']);
-    $routes->resource('kategori');
+    $routes->presenter('kategori', ['controller' => 'Kategori']);
     $routes->resource('tag');
     $routes->resource('blog');
     $routes->resource('produk');

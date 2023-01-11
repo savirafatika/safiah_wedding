@@ -27,7 +27,7 @@
                <?php endif; ?>
                <?php if (in_groups('superadmin')) : ?>
                     <li <?= ($getSegment2 === 'kategori') ? 'class="active"' : '' ?>>
-                         <a href="<?= route_to('kategori'); ?>" class="nav-link"><i class="fas fa-columns"></i> <span>Kategori</span></a>
+                         <a href="<?= base_url('superadmin/kategori'); ?>" class="nav-link"><i class="fas fa-columns"></i> <span>Kategori</span></a>
                     </li>
                     <li <?= ($getSegment2 === 'tag') ? 'class="active"' : '' ?>>
                          <a class="nav-link" href="<?= route_to('tag'); ?>"><i class="fas fa-tags"></i> <span>Tag</span></a>
