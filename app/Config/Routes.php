@@ -51,10 +51,10 @@ $routes->group('superadmin', ['filter' => 'role:superadmin'], static function ($
     $routes->get('hapus_pengguna/(:num)', 'Superadmin::hapus_pengguna/$1', ['as' => 'hapus_pengguna']);
     $routes->get('resetpas_pengguna/(:num)', 'Superadmin::resetpas_pengguna/$1', ['as' => 'resetpas_pengguna']);
     $routes->presenter('kategori', ['controller' => 'Kategori']);
-    $routes->resource('tag');
-    $routes->resource('blog');
-    $routes->resource('produk');
-    $routes->resource('hadiah');
+    $routes->presenter('tag', ['controller' => 'tag']);
+    $routes->presenter('blog', ['controller' => 'blog']);
+    $routes->presenter('produk', ['controller' => 'produk']);
+    $routes->presenter('hadiah', ['controller' => 'hadiah']);
 });
 
 $routes->group('admin', ['filter' => 'role:admin,superadmin'], static function ($routes) {

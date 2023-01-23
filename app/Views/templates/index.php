@@ -16,6 +16,11 @@
      <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
      <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
      <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/select2/dist/css/select2.min.css">
+     <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/summernote/summernote-bs4.css">
+     <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/codemirror/lib/codemirror.css">
+     <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/codemirror/theme/duotone-dark.css">
+     <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/jquery-selectric/selectric.css">
+     <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
 
      <!-- Template CSS -->
      <link rel="stylesheet" href="<?= base_url(); ?>/assets/css/style.css">
@@ -75,10 +80,17 @@
      <script src="<?= base_url(); ?>/assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
      <script src="<?= base_url(); ?>/assets/modules/jquery-ui/jquery-ui.min.js"></script>
      <script src="<?= base_url(); ?>/assets/modules/select2/dist/js/select2.full.min.js"></script>
+     <script src="<?= base_url(); ?>/assets/modules/summernote/summernote-bs4.js"></script>
+     <script src="<?= base_url(); ?>/assets/modules/codemirror/lib/codemirror.js"></script>
+     <script src="<?= base_url(); ?>/assets/modules/codemirror/mode/javascript/javascript.js"></script>
+     <script src="<?= base_url(); ?>/assets/modules/jquery-selectric/jquery.selectric.min.js"></script>
+     <script src="<?= base_url(); ?>/assets/modules/upload-preview/assets/js/jquery.uploadPreview.min.js"></script>
+     <script src="<?= base_url(); ?>/assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
 
      <!-- Page Specific JS File -->
      <script src="<?= base_url(); ?>/assets/js/page/modules-datatables.js"></script>
      <script src="<?= base_url(); ?>/assets/js/page/forms-advanced-forms.js"></script>
+     <script src="<?= base_url(); ?>/assets/js/page/features-post-create.js"></script>
      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
      <!-- Template JS File -->
@@ -87,7 +99,7 @@
 
      <script type="text/javascript">
           $(document).ready(function() {
-               $('select.select2').select2({
+               $('select.select2#grup_pengguna').select2({
                     placeholder: "Pilih Peran Pengguna",
                     allowClear: true,
                });

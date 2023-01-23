@@ -30,16 +30,16 @@
                          <a href="<?= base_url('superadmin/kategori'); ?>" class="nav-link"><i class="fas fa-columns"></i> <span>Kategori</span></a>
                     </li>
                     <li <?= ($getSegment2 === 'tag') ? 'class="active"' : '' ?>>
-                         <a class="nav-link" href="<?= route_to('tag'); ?>"><i class="fas fa-tags"></i> <span>Tag</span></a>
+                         <a class="nav-link" href="<?= base_url('superadmin/tag'); ?>"><i class="fas fa-tags"></i> <span>Tag</span></a>
                     </li>
                     <li <?= ($getSegment2 === 'blog') ? 'class="active"' : '' ?>>
-                         <a href="<?= route_to('blog'); ?>" class="nav-link"><i class="fas fa-newspaper"></i> <span>Blog</span></a>
+                         <a href="<?= base_url('superadmin/blog'); ?>" class="nav-link"><i class="fas fa-newspaper"></i> <span>Blog</span></a>
                     </li>
                     <li <?= ($getSegment2 === 'produk') ? 'class="active"' : '' ?>>
-                         <a href="<?= route_to('produk'); ?>" class="nav-link"><i class="fas fa-cubes"></i> <span>Produk</span></a>
+                         <a href="<?= base_url('superadmin/produk'); ?>" class="nav-link"><i class="fas fa-cubes"></i> <span>Produk</span></a>
                     </li>
                     <li <?= ($getSegment2 === 'hadiah') ? 'class="active"' : '' ?>>
-                         <a href="<?= route_to('hadiah'); ?>" class="nav-link"><i class="fas fa-gift"></i> <span>Hadiah</span></a>
+                         <a href="<?= base_url('superadmin/hadiah'); ?>" class="nav-link"><i class="fas fa-gift"></i> <span>Hadiah</span></a>
                     </li>
                <?php endif; ?>
                <?php if (in_groups(['superadmin', 'admin'])) : ?>
