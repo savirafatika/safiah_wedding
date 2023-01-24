@@ -83,7 +83,7 @@
                                              <label for="tag" class="col-sm-3 col-form-label">Tag</label>
                                              <div class="col-sm-9">
                                                   <select class="form-control selectric <?php if (session('errors.tag')) : ?>is-invalid<?php endif ?>" name="tag[]" id="tag" multiple="">
-                                                       <option disabled selected="selected" value="0">Tag Pilihan: </option>
+                                                       <option value="" selected data-default>Pilih Tag</option>
                                                        <?php foreach ($tag as $t) : ?>
                                                             <option value="<?= $t['id_tag']; ?>"><?= $t['nama_tag']; ?></option>
                                                        <?php endforeach ?>

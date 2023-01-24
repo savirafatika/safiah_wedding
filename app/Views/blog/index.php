@@ -40,14 +40,13 @@
                                         <table class="table table-striped" id="table-1">
                                              <thead>
                                                   <tr>
-                                                       <th class="text-center">
-                                                            #
-                                                       </th>
-                                                       <th>Judul</th>
-                                                       <th>Deskripsi Singkat</th>
-                                                       <th>Isi</th>
-                                                       <th>Thumbnail</th>
-                                                       <th>Action</th>
+                                                       <th class="text-center" width="3%"> # </th>
+                                                       <th width=10%">Judul</th>
+                                                       <th width="15%">Deskripsi Singkat</th>
+                                                       <th width="35%">Isi</th>
+                                                       <th width="7%">Tag</th>
+                                                       <th width="20%">Thumbnail</th>
+                                                       <th width="10%">Action</th>
                                                   </tr>
                                              </thead>
                                              <tbody>
@@ -58,10 +57,19 @@
                                                             <td><?= $b['judul']; ?></td>
                                                             <td><?= $b['deskripsi_singkat']; ?></td>
                                                             <td><?= $b['isi']; ?></td>
-                                                            <td><img src="<?= base_url('images/thumbnail/' . $b['thumbnail']); ?>" alt="thumbnail_blog" width="20%" height="10%"></td>
                                                             <td>
-                                                                 <a href="<?= base_url('superadmin/tag/edit/' . $b['id_tag']); ?>" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Edit tag" id="sw"><i class="fas fa-edit"></i></a>
-                                                                 <a href="<?= base_url('superadmin/tag/remove/' . $b['id_tag']); ?>" class="btn btn-danger buttonDelete" data-toggle="tooltip" data-placement="top" title="Hapus tag"><i class="fas fa-trash"></i></a>
+                                                                 <?php foreach ($tag as $t) : ?>
+                                                                      <?php if ($b['id_blog'] == $t->blog_id) : ?>
+                                                                           <span class="badge badge-secondary mb-1">
+                                                                                <?= $t->nama_tag; ?>
+                                                                           </span>
+                                                                      <?php endif; ?>
+                                                                 <?php endforeach; ?>
+                                                            </td>
+                                                            <td><img src="<?= base_url('images/thumbnail/' . $b['thumbnail']); ?>" alt="thumbnail_blog" width="70%" style="padding: 10px;"></td>
+                                                            <td>
+                                                                 <a href="<?= base_url('superadmin/blog/edit/' . $b['id_blog']); ?>" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Edit blog" id="sw"><i class="fas fa-edit"></i></a>
+                                                                 <a href="<?= base_url('superadmin/blog/remove/' . $b['id_blog']); ?>" class="btn btn-danger buttonDelete" data-toggle="tooltip" data-placement="top" title="Hapus blog"><i class="fas fa-trash"></i></a>
                                                             </td>
                                                        </tr>
                                                   <?php endforeach; ?>

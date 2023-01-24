@@ -36,13 +36,11 @@ class BlogModel extends Model
         'thumbnail' => [
             'label' => 'Thumbnail',
             'rules' => [
-                'uploaded[thumbnail]',
                 'is_image[thumbnail]',
                 'mime_in[thumbnail,image/jpg,image/jpeg,image/png]',
                 'max_size[thumbnail,2048]',
             ],
             'errors' => [
-                'uploaded' => 'Harus Ada File yang diupload',
                 'is_image' => 'Harus Berupa Gambar dengan Ekstensi jpg,jpeg,png',
                 'mime_in' => 'File Ekstensi Harus Berupa jpg,jpeg,png',
                 'max_size' => 'Ukuran File Maksimal 2 MB'
@@ -50,7 +48,7 @@ class BlogModel extends Model
         ]
     ];
     protected $validationMessages   = [];
-    protected $skipValidation       = false;
+    protected $skipValidation       = true;
     protected $cleanValidationRules = true;
 
     // Callbacks
