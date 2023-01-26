@@ -32,7 +32,7 @@
                          <div class="card">
                               <div class="card-header">
                                    <a href="<?= base_url('superadmin/tag/new'); ?>" class="btn btn-primary btn-icon icon-left" style="border-radius: 5px;">
-                                        <i class="fas fa-user-plus"> Buat Tag baru</i>
+                                        <i class="fas fa-plus"> Buat Tag baru</i>
                                    </a>
                               </div>
                               <div class="card-body">

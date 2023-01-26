@@ -37,6 +37,8 @@
                                         <h4>Mohon mengisi form dengan benar dan lengkap!</h4>
                                    </div>
                                    <div class="card-body">
+                                        <input type="hidden" name="id_blog" value="<?= $blog['id_blog']; ?>" />
+                                        <input type="hidden" name="oldThumbnail" value="<?= $blog['thumbnail']; ?>" />
                                         <div class="form-group row">
                                              <label for="judul" class="col-sm-3 col-form-label">Judul</label>
                                              <div class="col-sm-9">
@@ -75,19 +77,15 @@
                                              <div class="col-sm-9">
                                                   <select class="form-control selectric <?php if (session('errors.tag')) : ?>is-invalid<?php endif ?>" name="tag[]" id="tag" multiple="">
                                                        <option value="" selected data-default>Pilih Tag</option>
-                                                       <?php foreach ($tag as $g) : ?>
-                                                            <?php foreach ($tagOption as $t) : ?>
-                                                                 <?php
-                                                                 $selectedTag = '';
-                                                                 // if (in_array($g->tag_id, $t)) {
-                                                                 //      $selectedTag = 'selected';
-                                                                 // }
-                                                                 if ($g->tag_id == $t['id_tag']) {
-                                                                      $selectedTag = 'selected';
-                                                                 }
-                                                                 ?>
-                                                                 <option value="<?= $t['id_tag']; ?>" <?= $selectedTag; ?>><?= $t['nama_tag']; ?></option>
-                                                            <?php endforeach ?>
+                                                       <?php foreach ($tagOption as $t) : ?>
+                                                            <?php
+                                                            $selectedTag = '';
+                                                            // in_array(var_yg_dicek, var_data)
+                                                            if (in_array($t['id_tag'], $tag)) {
+                                                                 $selectedTag = 'selected';
+                                                            }
+                                                            ?>
+                                                            <option value="<?= $t['id_tag']; ?>" <?= $selectedTag; ?>><?= $t['nama_tag']; ?></option>
                                                        <?php endforeach ?>
                                                   </select>
                                                   <?php if (session('errors.tag')) : ?>
@@ -101,10 +99,6 @@
                                              <label for="thumbnail" class="col-sm-3 col-form-label">Thumbnail</label>
                                              <div class="col-sm-9">
                                                   <input type="file" id="thumbnail" name="thumbnail" class="form-control thumbnail <?php if (session('errors.thumbnail')) : ?>is-invalid<?php endif ?>" accept=".jpg,.png,.jpeg" value="" onchange="readURL(this);" />
-                                                  <!-- <div id="image-preview" class="image-preview">
-                                                       <label for="image-upload" id="image-label">Choose File</label>
-                                                       <input type="file" id="image-upload" name="thumbnail" class="<?php if (session('errors.thumbnail')) : ?>is-invalid<?php endif ?>" />
-                                                       </div> -->
                                                   <?php if (session('errors.thumbnail')) : ?>
                                                        <div class="invalid-feedback">
                                                             <?= session('errors.thumbnail') ?>

@@ -152,11 +152,17 @@ class Blog extends ResourcePresenter
         $data['title'] = 'Edit Blog';
         $data['tagOption'] = $tagModel->findAll();
         $data['blog'] = $this->blog->where('id_blog', $id_blog)->first();
-        $builder = $this->db->table('blog_tags as bt')->select('bt.*, tg.nama_tag')
+        $builder = $this->db->table('blog_tags as bt')->select('bt.tag_id')
             ->join('tag as tg', 'tg.id_tag = bt.tag_id')
             ->where('bt.blog_id', $id_blog)
             ->get();
-        $data['tag'] = $builder->getResult();
+        $tag_id = $builder->getResultArray();
+        foreach ($tag_id as $t) {
+            $data['tag'][] = $t['tag_id'];
+        }
+        // echo '<pre>';
+        // print_r($data['tag']);
+        // die;
         return view('blog/edit', $data);
     }
 
@@ -170,41 +176,80 @@ class Blog extends ResourcePresenter
      */
     public function update($id_blog = null)
     {
+        $id_blog =  $this->request->getVar('id_blog');
+
         // lakukan validasi
-        $rules = $this->blog->validationRules;
-
-        // cek ada validasi tidak 
-        if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-        }
-
-        $fileImage_name = $this->request->getVar('oldThumbnail');
-        if (isset($_FILES) && @$_FILES['thumbnail']['error'] != '4') {
-            if ($fileImage = $this->request->getFile('thumbnail')) {
-                if (!$fileImage->isValid()) {
-                    throw new \RuntimeException($fileImage->getErrorString() . '(' . $fileImage->getError() . ')');
-                } else {
-                    $path = 'images/thumbnail';
-                    $fileImage_name = $fileImage->getName();
-                    @unlink($path . $fileImage_name);
-                    $fileImage->move('images/thumbnail');
-                }
-            }
-        }
-
-        $allowedPostFields = [
-            'judul' => $this->request->getPost('judul'),
-            'deskripsi_singkat' => $this->request->getPost('deskripsi_singkat'),
-            'isi' => $this->request->getPost('isi'),
-            'thumbnail' => $fileImage_name
+        $rules = [
+            'judul' => [
+                'label' => 'Judul',
+                'rules' => 'required'
+            ],
+            'deskripsi_singkat' => [
+                'label' => 'Deskripsi Singkat',
+                'rules' => 'required'
+            ],
+            'thumbnail' => [
+                'label' => 'Thumbnail',
+                'rules' => [
+                    'is_image[thumbnail]',
+                    'mime_in[thumbnail,image/jpg,image/jpeg,image/png]',
+                    'max_size[thumbnail,2048]',
+                ],
+                'errors' => [
+                    'is_image' => 'Harus Berupa Gambar dengan Ekstensi jpg,jpeg,png',
+                    'mime_in' => 'File Ekstensi Harus Berupa jpg,jpeg,png',
+                    'max_size' => 'Ukuran File Maksimal 2 MB'
+                ]
+            ]
         ];
 
-        if (!$this->blog->update($id_blog, $allowedPostFields)) {
-            return redirect()->back()->withInput()->with('errors', $this->blog->errors());
-        }
+        // cek ada validasi tidak 
+        if ($this->validate($rules)) {
+            $fileImage_name = $this->request->getVar('oldThumbnail');
+            if (isset($_FILES) && @$_FILES['thumbnail']['error'] != '4') {
+                if ($fileImage = $this->request->getFile('thumbnail')) {
+                    if (!$fileImage->isValid()) {
+                        throw new \RuntimeException($fileImage->getErrorString() . '(' . $fileImage->getError() . ')');
+                    } else {
+                        if ($fileImage_name !== 'placeholder.jpg') {
+                            $path = 'images/thumbnail/';
+                            unlink($path . $fileImage_name);
+                        }
+                        $fileImage_name = $fileImage->getRandomName();
+                        $fileImage->move('images/thumbnail', $fileImage_name);
+                    }
+                }
+            }
 
-        session()->setFlashdata('message', 'Berhasil mengubah blog');
-        return redirect()->to(base_url('superadmin/blog'));
+            $allowedPostFields = [
+                'judul' => $this->request->getPost('judul'),
+                'deskripsi_singkat' => $this->request->getPost('deskripsi_singkat'),
+                'isi' => $this->request->getPost('isi'),
+                'thumbnail' => $fileImage_name
+            ];
+
+            $this->blog->update($id_blog, $allowedPostFields);
+
+            $blogTags = new BlogTagsModel();
+            if ($this->request->getPost('tag') !== null) {
+                $nama_tags = count($this->request->getPost('tag'));
+
+                $blogTags->where('blog_id', $id_blog)->delete();
+                for ($i = 0; $i < $nama_tags; $i++) {
+                    $datas[$i] = array(
+                        'blog_id' => $id_blog,
+                        'tag_id' => $this->request->getPost('tag[' . $i . ']')
+                    );
+
+                    $blogTags->save($datas[$i]);
+                }
+            }
+
+            session()->setFlashdata('message', 'Berhasil mengubah blog');
+            return redirect()->to(base_url('superadmin/blog'));
+        } else {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
     }
 
     /**

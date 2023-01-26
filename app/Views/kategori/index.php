@@ -32,7 +32,7 @@
                          <div class="card">
                               <div class="card-header">
                                    <a href="<?= base_url('superadmin/kategori/new'); ?>" class="btn btn-primary btn-icon icon-left" style="border-radius: 5px;">
-                                        <i class="fas fa-user-plus"> Buat Kategori Produk</i>
+                                        <i class="fas fa-plus"> Buat Kategori Produk</i>
                                    </a>
                               </div>
                               <div class="card-body">
