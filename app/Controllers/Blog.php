@@ -10,7 +10,7 @@ use Config\Database;
 
 class Blog extends ResourcePresenter
 {
-    protected $blog, $db, $builder;
+    protected $blog, $db;
 
     public function __construct()
     {

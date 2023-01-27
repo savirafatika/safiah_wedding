@@ -19,7 +19,6 @@
      <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/summernote/summernote-bs4.css">
      <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/codemirror/lib/codemirror.css">
      <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/codemirror/theme/duotone-dark.css">
-     <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/jquery-selectric/selectric.css">
      <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
 
      <!-- Template CSS -->
@@ -83,14 +82,12 @@
      <script src="<?= base_url(); ?>/assets/modules/summernote/summernote-bs4.js"></script>
      <script src="<?= base_url(); ?>/assets/modules/codemirror/lib/codemirror.js"></script>
      <script src="<?= base_url(); ?>/assets/modules/codemirror/mode/javascript/javascript.js"></script>
-     <script src="<?= base_url(); ?>/assets/modules/jquery-selectric/jquery.selectric.min.js"></script>
      <script src="<?= base_url(); ?>/assets/modules/upload-preview/assets/js/jquery.uploadPreview.min.js"></script>
      <script src="<?= base_url(); ?>/assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
 
      <!-- Page Specific JS File -->
      <script src="<?= base_url(); ?>/assets/js/page/modules-datatables.js"></script>
      <script src="<?= base_url(); ?>/assets/js/page/forms-advanced-forms.js"></script>
-     <script src="<?= base_url(); ?>/assets/js/page/features-post-create.js"></script>
      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
      <!-- Template JS File -->
@@ -101,6 +98,16 @@
           $(document).ready(function() {
                $('select.select2#grup_pengguna').select2({
                     placeholder: "Pilih Peran Pengguna",
+                    allowClear: true,
+               });
+
+               $('select.select2#tag').select2({
+                    placeholder: "Pilih Tag",
+                    allowClear: true,
+               });
+
+               $('select.select2#kategori_id').select2({
+                    placeholder: "Pilih Kategori Produk",
                     allowClear: true,
                });
 
@@ -115,7 +122,39 @@
                          }, 50);
                     });
                });
+
+               var rupiah = document.getElementById('harga');
+               rupiah.addEventListener('keyup', function(e) {
+                    // tambahkan 'Rp.' pada saat ketik nominal di form kolom input
+                    // gunakan fungsi formatRupiah() untuk mengubah nominal angka yang di ketik menjadi format angka
+                    rupiah.value = formatRupiah(this.value);
+               });
+               /* Fungsi formatRupiah */
+               function formatRupiah(angka, prefix) {
+                    var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                         split = number_string.split(','),
+                         sisa = split[0].length % 3,
+                         rupiah = split[0].substr(0, sisa),
+                         ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+                    // tambahkan titik jika yang di input sudah menjadi angka satuan ribuan
+                    if (ribuan) {
+                         separator = sisa ? '.' : '';
+                         rupiah += separator + ribuan.join('.');
+                    }
+
+                    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                    return prefix == undefined ? rupiah : (rupiah ? rupiah : '');
+               }
           });
+
+          function isNumberKey(evt) {
+               var charCode = (evt.which) ? evt.which : event.keyCode;
+               if (charCode === 44 || charCode === 46 || (48 <= charCode && charCode <= 57)) {
+                    return true;
+               }
+               return false;
+          }
      </script>
 
      <!-- Show hide password -->

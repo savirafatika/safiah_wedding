@@ -75,8 +75,8 @@
                                         <div class="form-group row">
                                              <label for="tag" class="col-sm-3 col-form-label">Tag</label>
                                              <div class="col-sm-9">
-                                                  <select class="form-control selectric <?php if (session('errors.tag')) : ?>is-invalid<?php endif ?>" name="tag[]" id="tag" multiple="">
-                                                       <option value="" selected data-default>Pilih Tag</option>
+                                                  <select class="form-control select2 <?php if (session('errors.tag')) : ?>is-invalid<?php endif ?>" name="tag[]" id="tag" multiple="">
+                                                       <option></option>
                                                        <?php foreach ($tagOption as $t) : ?>
                                                             <?php
                                                             $selectedTag = '';

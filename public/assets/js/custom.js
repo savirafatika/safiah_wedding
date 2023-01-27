@@ -75,6 +75,7 @@ function readURL(input) {
 
           reader.onload = function(e) {
                $('#preview_thumbnail').attr('src', e.target.result);
+               $('#preview_foto_produk').attr('src', e.target.result);
           };
 
           reader.readAsDataURL(input.files[0]);

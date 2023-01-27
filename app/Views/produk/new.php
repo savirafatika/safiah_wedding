@@ -6,9 +6,9 @@
      <section class="section">
           <div class="section-header">
                <div class="section-header-back">
-                    <a href="<?= base_url('superadmin/blog'); ?>" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
+                    <a href="<?= base_url('superadmin/produk'); ?>" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
                </div>
-               <h1>Buat Blog Baru</h1>
+               <h1>Buat Produk Baru</h1>
           </div>
 
           <div class="section-body">
@@ -39,7 +39,7 @@
                <div class="row">
                     <div class="col-lg-8">
                          <div class="card">
-                              <form class="needs-validation" novalidate="" action="<?= base_url('superadmin/blog/create'); ?>" method="post" enctype="multipart/form-data">
+                              <form class="needs-validation" novalidate="" action="<?= base_url('superadmin/produk/create'); ?>" method="post" enctype="multipart/form-data">
                                    <?= csrf_field(); ?>
 
                                    <div class="card-header">
@@ -47,69 +47,72 @@
                                    </div>
                                    <div class="card-body">
                                         <div class="form-group row">
-                                             <label for="judul" class="col-sm-3 col-form-label">Judul</label>
+                                             <label for="nama_produk" class="col-sm-3 col-form-label">Nama Produk</label>
                                              <div class="col-sm-9">
-                                                  <input type="text" class="form-control <?php if (session('errors.judul')) : ?>is-invalid<?php endif ?>" name="judul" id="judul" placeholder="Paesan">
-                                                  <?php if (session('errors.judul')) : ?>
+                                                  <input type="text" class="form-control <?php if (session('errors.nama_produk')) : ?>is-invalid<?php endif ?>" name="nama_produk" id="nama_produk" placeholder="Papan Menu">
+                                                  <?php if (session('errors.nama_produk')) : ?>
                                                        <div class="invalid-feedback">
-                                                            <?= session('errors.judul') ?>
+                                                            <?= session('errors.nama_produk') ?>
                                                        </div>
                                                   <?php endif ?>
                                              </div>
                                         </div>
                                         <div class="form-group row">
-                                             <label for="deskripsi_singkat" class="col-sm-3 col-form-label">Deskripsi Singkat</label>
+                                             <label for="deskripsi" class="col-sm-3 col-form-label">Deskripsi</label>
                                              <div class="col-sm-9">
-                                                  <input type="text" class="form-control <?php if (session('errors.deskripsi_singkat')) : ?>is-invalid<?php endif ?>" name="deskripsi_singkat" id="deskripsi_singkat" placeholder="Membahas riasan pengantin jawa">
-                                                  <?php if (session('errors.deskripsi_singkat')) : ?>
+                                                  <textarea name="deskripsi" id="deskripsi" class="summernote-simple <?php if (session('errors.deskripsi')) : ?>is-invalid<?php endif ?>" placeholder="Penyangga"></textarea>
+                                                  <?php if (session('errors.deskripsi')) : ?>
                                                        <div class="invalid-feedback">
-                                                            <?= session('errors.deskripsi_singkat') ?>
+                                                            <?= session('errors.deskripsi') ?>
                                                        </div>
                                                   <?php endif ?>
                                              </div>
                                         </div>
                                         <div class="form-group row">
-                                             <label for="isi" class="col-sm-3 col-form-label">Isi</label>
+                                             <label for="harga" class="col-sm-3 col-form-label">Harga</label>
                                              <div class="col-sm-9">
-                                                  <textarea name="isi" id="isi" class="summernote-simple <?php if (session('errors.isi')) : ?>is-invalid<?php endif ?>" placeholder="Penyangga"></textarea>
-                                                  <?php if (session('errors.isi')) : ?>
-                                                       <div class="invalid-feedback">
-                                                            <?= session('errors.isi') ?>
+                                                  <div class="input-group">
+                                                       <div class="input-group-prepend">
+                                                            <div class="input-group-text">
+                                                                 IDR
+                                                            </div>
                                                        </div>
-                                                  <?php endif ?>
+                                                       <input type="text" class="form-control <?php if (session('errors.harga')) : ?>is-invalid<?php endif ?>" name="harga" id="harga" placeholder="100000" onkeypress="return isNumberKey(event)">
+                                                       <?php if (session('errors.harga')) : ?>
+                                                            <div class="invalid-feedback">
+                                                                 <?= session('errors.harga') ?>
+                                                            </div>
+                                                       <?php endif ?>
+                                                  </div>
                                              </div>
                                         </div>
                                         <div class="form-group row">
-                                             <label for="tag" class="col-sm-3 col-form-label">Tag</label>
+                                             <label for="kategori_id" class="col-sm-3 col-form-label">Kategori</label>
                                              <div class="col-sm-9">
-                                                  <select class="form-control select2 <?php if (session('errors.tag')) : ?>is-invalid<?php endif ?>" name="tag[]" id="tag" multiple="">
+                                                  <select class="form-control select2 <?php if (session('errors.kategori_id')) : ?>is-invalid<?php endif ?>" name="kategori_id" id="kategori_id">
                                                        <option></option>
-                                                       <?php foreach ($tag as $t) : ?>
-                                                            <option value="<?= $t['id_tag']; ?>"><?= $t['nama_tag']; ?></option>
+                                                       <?php foreach ($kategori as $k) : ?>
+                                                            <option value="<?= $k['id_kategori']; ?>"><?= $k['nama_kategori']; ?></option>
                                                        <?php endforeach ?>
                                                   </select>
-                                                  <?php if (session('errors.tag')) : ?>
+                                                  <?php if (session('errors.kategori_id')) : ?>
                                                        <div class="invalid-feedback">
-                                                            <?= session('errors.tag') ?>
+                                                            <?= session('errors.kategori_id') ?>
                                                        </div>
                                                   <?php endif ?>
                                              </div>
                                         </div>
                                         <div class="form-group row">
-                                             <label for="thumbnail" class="col-sm-3 col-form-label">Thumbnail</label>
+                                             <label for="foto_produk" class="col-sm-3 col-form-label">Foto Produk</label>
                                              <div class="col-sm-9">
-                                                  <input type="file" id="thumbnail" name="thumbnail" class="form-control thumbnail <?php if (session('errors.thumbnail')) : ?>is-invalid<?php endif ?>" accept=".jpg,.png,.jpeg" onchange="readURL(this);" />
-                                                  <!-- <div id="image-preview" class="image-preview">
-                                                       <label for="image-upload" id="image-label">Choose File</label>
-                                                       <input type="file" id="image-upload" name="thumbnail" class="<?php if (session('errors.thumbnail')) : ?>is-invalid<?php endif ?>" />
-                                                       </div> -->
-                                                  <?php if (session('errors.thumbnail')) : ?>
+                                                  <input type="file" id="foto_produk" name="foto_produk" class="form-control foto_produk <?php if (session('errors.foto_produk')) : ?>is-invalid<?php endif ?>" accept=".jpg,.png,.jpeg" onchange="readURL(this);" />
+                                                  <?php if (session('errors.foto_produk')) : ?>
                                                        <div class="invalid-feedback">
-                                                            <?= session('errors.thumbnail') ?>
+                                                            <?= session('errors.foto_produk') ?>
                                                        </div>
                                                   <?php endif ?>
                                                   <br>
-                                                  <img id="preview_thumbnail" src="<?= base_url(); ?>/assets/img/news/img01.jpg" alt="thumbnail image" width="250" />
+                                                  <img id="preview_foto_produk" src="<?= base_url(); ?>/assets/img/news/img01.jpg" alt="foto_produk image" width="250" />
                                              </div>
                                         </div>
                                    </div>
