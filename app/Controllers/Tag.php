@@ -112,7 +112,6 @@ class Tag extends ResourcePresenter
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-
         $allowedPostFields = [
             'nama_tag' => $this->request->getPost('nama_tag'),
             'slug' => $this->request->getPost('slug'),

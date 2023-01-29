@@ -96,6 +96,48 @@
 
      <script type="text/javascript">
           $(document).ready(function() {
+
+               $('.diskon_rupiah').hide();
+               $('.diskon_persen').hide();
+
+               $('#status').on('click', function() {
+                    var status = document.getElementById("status");
+                    if (status.checked) {
+                         $('#status').val('on');
+                         console.log("on checked");
+                    } else {
+                         $('#status').val('off');
+                         console.log("default off");
+                    }
+               });
+
+               var select = document.getElementById('jenis_hadiah');
+               var option;
+
+               for (var i = 0; i < select.options.length; i++) {
+                    option = select.options[i];
+
+                    // console.log(option.value + ', ' + option.getAttribute('class'));
+                    if (option.value == option.getAttribute('class')) {
+                         option.setAttribute('selected', true);
+                    }
+               }
+
+               var jenis_hadiah = $("#jenis_hadiah option:selected").val();
+               if (jenis_hadiah == 'diskon_rupiah') {
+                    $('.khusus').hide();
+                    $('.diskon_rupiah').show();
+                    $('.diskon_persen').hide();
+               } else if (jenis_hadiah == 'diskon_persen') {
+                    $('.khusus').hide();
+                    $('.diskon_rupiah').hide();
+                    $('.diskon_persen').show();
+               } else {
+                    $('.khusus').show();
+                    $('.diskon_rupiah').hide();
+                    $('.diskon_persen').hide();
+               }
+
                $('select.select2#grup_pengguna').select2({
                     placeholder: "Pilih Peran Pengguna",
                     allowClear: true,
@@ -111,6 +153,35 @@
                     allowClear: true,
                });
 
+               $('select.select2#jenis_hadiah').select2({
+                    placeholder: "Pilih Jenis Hadiah",
+                    allowClear: true,
+               })
+               // .on('change', function(e) {
+               //      var jenis_hadiah = $(this).val();
+               //      console.log('barusan select: ' + jenis_hadiah);
+               //      $('.khusus, .diskon_rupiah, .diskon_persen').val('');
+               // });
+
+               $('#jenis_hadiah').on('select2:select', function(e) {
+                    var data = e.params.data.id;
+                    console.log(data);
+
+                    if (data == 'diskon_rupiah') {
+                         $('.khusus').hide();
+                         $('.diskon_rupiah').show();
+                         $('.diskon_persen').hide();
+                    } else if (data == 'diskon_persen') {
+                         $('.khusus').hide();
+                         $('.diskon_rupiah').hide();
+                         $('.diskon_persen').show();
+                    } else {
+                         $('.khusus').show();
+                         $('.diskon_rupiah').hide();
+                         $('.diskon_persen').hide();
+                    }
+               });
+
                $('form').each(function() {
                     var form = $(this),
                          reset = form.find(':reset'),
@@ -123,30 +194,29 @@
                     });
                });
 
-               var rupiah = document.getElementById('harga');
-               rupiah.addEventListener('keyup', function(e) {
-                    // tambahkan 'Rp.' pada saat ketik nominal di form kolom input
-                    // gunakan fungsi formatRupiah() untuk mengubah nominal angka yang di ketik menjadi format angka
-                    rupiah.value = formatRupiah(this.value);
-               });
-               /* Fungsi formatRupiah */
-               function formatRupiah(angka, prefix) {
-                    var number_string = angka.replace(/[^,\d]/g, '').toString(),
-                         split = number_string.split(','),
-                         sisa = split[0].length % 3,
-                         rupiah = split[0].substr(0, sisa),
-                         ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-                    // tambahkan titik jika yang di input sudah menjadi angka satuan ribuan
-                    if (ribuan) {
-                         separator = sisa ? '.' : '';
-                         rupiah += separator + ribuan.join('.');
-                    }
-
-                    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-                    return prefix == undefined ? rupiah : (rupiah ? rupiah : '');
-               }
           });
+
+          function toRupiah(nominal) {
+               nominal.value = formatRupiah(nominal.value);
+          }
+
+          /* Fungsi formatRupiah */
+          function formatRupiah(angka, prefix) {
+               var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                    split = number_string.split(','),
+                    sisa = split[0].length % 3,
+                    rupiah = split[0].substr(0, sisa),
+                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+               // tambahkan titik jika yang di input sudah menjadi angka satuan ribuan
+               if (ribuan) {
+                    separator = sisa ? '.' : '';
+                    rupiah += separator + ribuan.join('.');
+               }
+
+               rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+               return prefix == undefined ? rupiah : (rupiah ? rupiah : '');
+          }
 
           function isNumberKey(evt) {
                var charCode = (evt.which) ? evt.which : event.keyCode;

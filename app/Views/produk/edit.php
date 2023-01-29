@@ -70,7 +70,7 @@
                                                                  IDR
                                                             </div>
                                                        </div>
-                                                       <input type="text" class="form-control <?php if (session('errors.harga')) : ?>is-invalid<?php endif ?>" name="harga" id="harga" value="<?= number_format($produk['harga'], 0, '', '.');; ?>" onkeypress="return isNumberKey(event)">
+                                                       <input type="text" class="form-control <?php if (session('errors.harga')) : ?>is-invalid<?php endif ?>" name="harga" id="harga" value="<?= number_format($produk['harga'], 0, '', '.'); ?>" onkeypress="return isNumberKey(event)" onkeyup="toRupiah(this)">
                                                        <?php if (session('errors.harga')) : ?>
                                                             <div class="invalid-feedback">
                                                                  <?= session('errors.harga') ?>

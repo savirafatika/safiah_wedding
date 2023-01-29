@@ -60,7 +60,7 @@
                                                             <td>
                                                                  <?php foreach ($kategori as $k) : ?>
                                                                       <?php if (($p['kategori_id'] == $k->id_kategori) && ($p['id_produk'] == $k->id_produk)) : ?>
-                                                                           <span class="badge badge-warning mb-1">
+                                                                           <span class="badge badge-light mb-1">
                                                                                 <?= $k->nama_kategori; ?>
                                                                            </span>
                                                                       <?php endif; ?>

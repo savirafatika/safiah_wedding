@@ -77,7 +77,7 @@
                                                                  IDR
                                                             </div>
                                                        </div>
-                                                       <input type="text" class="form-control <?php if (session('errors.harga')) : ?>is-invalid<?php endif ?>" name="harga" id="harga" placeholder="100000" onkeypress="return isNumberKey(event)">
+                                                       <input type="text" class="form-control <?php if (session('errors.harga')) : ?>is-invalid<?php endif ?>" name="harga" id="harga" placeholder="100000" onkeypress="return isNumberKey(event)" onkeyup="toRupiah(this)">
                                                        <?php if (session('errors.harga')) : ?>
                                                             <div class="invalid-feedback">
                                                                  <?= session('errors.harga') ?>
