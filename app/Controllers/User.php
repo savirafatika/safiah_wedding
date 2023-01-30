@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\KategoriModel;
+use App\Models\ProdukModel;
 use Config\Database;
 use Myth\Auth\Password;
 
@@ -17,7 +19,13 @@ class User extends BaseController
 
      public function index()
      {
+          $produkModel = new ProdukModel();
+          $kategoriModel = new KategoriModel();
+
           $data['title'] = 'Galeri Produk';
+          $data['produk'] = $produkModel->findAll();
+          $data['kategori'] = $kategoriModel->findAll();
+
           return view('user/index', $data);
      }
 
