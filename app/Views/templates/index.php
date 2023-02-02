@@ -168,12 +168,14 @@
                var select = document.getElementById('jenis_hadiah');
                var option;
 
-               for (var i = 0; i < select.options.length; i++) {
-                    option = select.options[i];
+               if (select != null) {
+                    for (var i = 0; i < select.options.length; i++) {
+                         option = select.options[i];
 
-                    // console.log(option.value + ', ' + option.getAttribute('class'));
-                    if (option.value == option.getAttribute('class')) {
-                         option.setAttribute('selected', true);
+                         // console.log(option.value + ', ' + option.getAttribute('class'));
+                         if (option.value == option.getAttribute('class')) {
+                              option.setAttribute('selected', true);
+                         }
                     }
                }
 
@@ -247,6 +249,10 @@
                          }, 50);
                     });
                });
+
+               // $('form#form_tambah_klaim_hadiah_pengguna').on('submit', function(e) {
+               //      e.preventDefault();
+               // });
 
           });
 

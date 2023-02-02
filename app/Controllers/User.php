@@ -2,7 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Models\HadiahModel;
 use App\Models\KategoriModel;
+use App\Models\KlaimHadiahModel;
 use App\Models\ProdukModel;
 use Config\Database;
 use Myth\Auth\Password;
@@ -88,5 +90,58 @@ class User extends BaseController
           // Success!
           session()->setFlashdata('message', 'Berhasil mengganti password pengguna');
           return redirect()->to(base_url('user/profil'));
+     }
+
+     public function klaim_hadiah()
+     {
+          $hadiahModel = new HadiahModel();
+          $data['title'] = 'Klaim Hadiah';
+          // $klaim_hadiah = $this->db->table('hadiah as h')
+          //      ->select('*, k.created_at as tgl_klaim')
+          //      ->join('klaim_hadiah as k', 'h.id_hadiah = k.hadiah_id')
+          //      ->where('k.user_id', user_id())
+          //      ->where('h.status', 'on')
+          //      ->get();
+
+          // $data['klaim'] = $klaim_hadiah->getResult();
+          $data['hadiah'] = $hadiahModel->where('status', 'on')->paginate(4, 'hadiah');
+          $data['pager'] = $hadiahModel->pager;
+          return view('user/klaim_hadiah', $data);
+     }
+
+     public function tambah_klaim($hadiah, $berlaku)
+     {
+          $klaimHadiahModel = new KlaimHadiahModel();
+          // lakukan validasi
+          $rules = $klaimHadiahModel->validationRules;
+
+          // cek ada validasi tidak 
+          if (!$this->validate($rules)) {
+               return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+          }
+
+          $id_hadiah = ($this->request->getPost('id_hadiah') != '') ? $this->request->getPost('id_hadiah') : 0;
+          $masa_berlaku = ($this->request->getPost('masa_berlaku') != '') ? $this->request->getPost('masa_berlaku') : 0;
+
+          $now = date('Y-m-d H:i:s');
+          $tgl_selesai_berlaku = date('Y-m-d', strtotime($now . ' + ' . $masa_berlaku . ' days'));
+
+          $allowedPostFields = [
+               'hadiah_id' => $id_hadiah,
+               'user_id' => user_id(),
+               'selesai_berlaku' => $tgl_selesai_berlaku
+          ];
+
+          // echo '<pre>';
+          // print_r($allowedPostFields);
+          // die;
+
+          if (!$klaimHadiahModel->save($allowedPostFields)) {
+               return redirect()->back()->withInput()->with('errors', $klaimHadiahModel->errors());
+          }
+
+          // Success!
+          session()->setFlashdata('message', 'Selamat Anda berhasil klaim hadiah');
+          return redirect()->to(base_url('user/hadiah_pengguna'));
      }
 }

@@ -64,7 +64,7 @@
                                                             <td><span class="badge badge-<?= ($user->active == 1) ? 'success' : 'secondary'; ?>"><?= ($user->active == 1) ? 'aktif' : 'tidak aktif'; ?></span></td>
                                                             <td>
                                                                  <a href="<?= base_url('superadmin/detail_pengguna/' . $user->userid); ?>" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Lihat detail"><i class="fas fa-info"></i></a>
-                                                                 <a href="<?= base_url('superadmin/resetpas_pengguna/' . $user->userid); ?>" class="btn btn-warning buttonResetPasUser" data-toggle="tooltip" data-placement="top" title="Reset password" id="sw"><i class="fas fa-key"></i></a>
+                                                                 <a href="<?= base_url('superadmin/resetpas_pengguna/' . $user->userid); ?>" class="btn btn-warning buttonResetPasUser" data-toggle="tooltip" data-placement="top" title="Reset password"><i class="fas fa-key"></i></a>
                                                                  <a href="<?= base_url('superadmin/hapus_pengguna/' . $user->userid); ?>" class="btn btn-danger buttonDelete" data-toggle="tooltip" data-placement="top" title="Hapus pengguna"><i class="fas fa-trash"></i></a>
                                                             </td>
                                                        </tr>
