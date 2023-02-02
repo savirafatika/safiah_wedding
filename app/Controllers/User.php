@@ -95,21 +95,29 @@ class User extends BaseController
      public function klaim_hadiah()
      {
           $hadiahModel = new HadiahModel();
-          $data['title'] = 'Klaim Hadiah';
-          // $klaim_hadiah = $this->db->table('hadiah as h')
-          //      ->select('*, k.created_at as tgl_klaim')
-          //      ->join('klaim_hadiah as k', 'h.id_hadiah = k.hadiah_id')
-          //      ->where('k.user_id', user_id())
-          //      ->where('h.status', 'on')
-          //      ->get();
+          $klaimHadiahModel = new KlaimHadiahModel();
+          $klaim_hadiah = $klaimHadiahModel->where('user_id', user_id())->get();
+          $hadiah_id = array_column($klaim_hadiah->getResultArray() ?? [], 'hadiah_id');
+          $hadiahModel->where('status', 'on');
 
-          // $data['klaim'] = $klaim_hadiah->getResult();
-          $data['hadiah'] = $hadiahModel->where('status', 'on')->paginate(4, 'hadiah');
+          if ($hadiah_id) {
+               $hadiahModel->whereNotIn('id_hadiah', $hadiah_id);
+          }
+
+          $data['title'] = 'Klaim Hadiah';
+          $data['klaim'] = $klaim_hadiah->getResultArray();
+          $data['hadiah'] = $hadiahModel->paginate(4, 'hadiah');
           $data['pager'] = $hadiahModel->pager;
+
+          $data['hadiahku'] = $klaimHadiahModel->join('hadiah', 'hadiah.id_hadiah = klaim_hadiah.hadiah_id')
+               ->where('user_id', user_id())
+               ->paginate(4, 'hadiahku');
+          $data['pager2'] = $klaimHadiahModel->pager;
+
           return view('user/klaim_hadiah', $data);
      }
 
-     public function tambah_klaim($hadiah, $berlaku)
+     public function tambah_klaim()
      {
           $klaimHadiahModel = new KlaimHadiahModel();
           // lakukan validasi
@@ -120,11 +128,11 @@ class User extends BaseController
                return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
           }
 
-          $id_hadiah = ($this->request->getPost('id_hadiah') != '') ? $this->request->getPost('id_hadiah') : 0;
+          $id_hadiah = ($this->request->getPost('hadiah_id') != '') ? $this->request->getPost('hadiah_id') : 0;
           $masa_berlaku = ($this->request->getPost('masa_berlaku') != '') ? $this->request->getPost('masa_berlaku') : 0;
 
           $now = date('Y-m-d H:i:s');
-          $tgl_selesai_berlaku = date('Y-m-d', strtotime($now . ' + ' . $masa_berlaku . ' days'));
+          $tgl_selesai_berlaku = date('Y-m-d H:i:s', strtotime($now . ' + ' . $masa_berlaku . ' days'));
 
           $allowedPostFields = [
                'hadiah_id' => $id_hadiah,

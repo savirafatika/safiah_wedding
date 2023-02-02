@@ -55,6 +55,7 @@ $routes->group('superadmin', ['filter' => 'role:superadmin'], static function ($
     $routes->presenter('blog', ['controller' => 'blog']);
     $routes->presenter('produk', ['controller' => 'produk']);
     $routes->presenter('hadiah', ['controller' => 'hadiah']);
+    $routes->get('klaim_hadiah', 'Superadmin::daftar_klaim_hadiah', ['as' => 'klaim_hadiah']);
 });
 
 $routes->group('admin', ['filter' => 'role:admin,superadmin'], static function ($routes) {
@@ -68,7 +69,7 @@ $routes->group('user', static function ($routes) {
     $routes->get('galeri_produk', 'User::index', ['as' => 'galeri']);
     $routes->get('reservasi_pengguna', 'User::reservasi', ['as' => 'reservasi_pengguna']);
     $routes->get('hadiah_pengguna', 'User::klaim_hadiah', ['as' => 'hadiah_pengguna']);
-    $routes->post('klaim_hadiah_pengguna/(:num)/(:num)', 'User::tambah_klaim/$1/$2', ['as' => 'tambah_klaim_hadiah']);
+    $routes->post('klaim_hadiah_pengguna', 'User::tambah_klaim', ['as' => 'tambah_klaim_hadiah']);
 });
 
 

@@ -29,11 +29,6 @@ class KlaimHadiahModel extends Model
             'label' => 'Hadiah',
             'rules' => 'required',
             'errors' => 'Hadiah harus dipilih.',
-        ],
-        'user_id' => [
-            'label'  => 'User',
-            'rules'  => 'required',
-            'errors' => 'User tidak tidak terdeteksi.',
         ]
     ];
     protected $validationMessages   = [];
