@@ -55,12 +55,11 @@ $routes->group('superadmin', ['filter' => 'role:superadmin'], static function ($
     $routes->presenter('blog', ['controller' => 'blog']);
     $routes->presenter('produk', ['controller' => 'produk']);
     $routes->presenter('hadiah', ['controller' => 'hadiah']);
-    $routes->get('klaim_hadiah', 'Superadmin::daftar_klaim_hadiah', ['as' => 'klaim_hadiah']);
 });
 
 $routes->group('admin', ['filter' => 'role:admin,superadmin'], static function ($routes) {
-    $routes->presenter('klaim_hadiah', ['controller' => 'KlaimHadiah']);
     $routes->get('reservasi', 'Admin::index', ['as' => 'reservasi']);
+    $routes->get('klaim_hadiah', 'Admin::daftar_klaim_hadiah', ['as' => 'klaim_hadiah']);
 });
 
 $routes->group('user', static function ($routes) {

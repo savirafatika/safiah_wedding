@@ -131,20 +131,4 @@ class Superadmin extends BaseController
           session()->setFlashdata('message', 'Berhasil menghapus pengguna');
           return redirect()->to(base_url('superadmin/akses_pengguna'));
      }
-
-     public function daftar_klaim_hadiah()
-     {
-          $klaimHadiahModel = new KlaimHadiahModel();
-
-          $data['title'] = 'Daftar Klaim Hadiah';
-          $dataKlaimHadiah = $klaimHadiahModel->join('hadiah', 'hadiah.id_hadiah = klaim_hadiah.hadiah_id')
-               ->join('users', 'users.id = klaim_hadiah.user_id')
-               ->select('klaim_hadiah.id_klaim_hadiah, klaim_hadiah.selesai_berlaku, hadiah.nama_hadiah, hadiah.jenis_hadiah, hadiah.nilai_hadiah, users.fullname')
-               ->get();
-          $data['hadiahku'] = $dataKlaimHadiah->getResult();
-          // echo '<pre>';
-          // print_r($dataKlaimHadiah);
-          // die;
-          return view('superadmin/klaim_hadiah', $data);
-     }
 }
