@@ -6,6 +6,7 @@ use App\Models\HadiahModel;
 use App\Models\KategoriModel;
 use App\Models\KlaimHadiahModel;
 use App\Models\ProdukModel;
+use App\Models\ReservasiModel;
 use Config\Database;
 use Myth\Auth\Password;
 
@@ -151,5 +152,25 @@ class User extends BaseController
           // Success!
           session()->setFlashdata('message', 'Selamat Anda berhasil klaim hadiah');
           return redirect()->to(base_url('user/hadiah_pengguna'));
+     }
+
+     public function cetak_reservasi($id_reservasi = null)
+     {
+          $reservasiModel = new ReservasiModel();
+          $data['title'] = 'Cetak Reservasi';
+          $data['reservasi'] = $reservasiModel->select('reservasi.*, users.*, hadiah.*, reservasi.created_at as tgl_reservasi')
+               ->join('users', 'users.id = reservasi.member_id', 'left')
+               ->join('hadiah', 'hadiah.id_hadiah = reservasi.hadiah_id', 'left')
+               ->where('id_reservasi', $id_reservasi)
+               ->first();
+
+          $builder = $this->db->table('produk_reservasi as pr')->select('pr.*, pd.nama_produk, pd.harga as harga_produk, r.potongan_harga, r.total_bayar')
+               ->join('reservasi as r', 'r.id_reservasi = pr.reservasi_id')
+               ->join('produk as pd', 'pd.id_produk = pr.produk_id')
+               ->where('reservasi_id', $id_reservasi)
+               ->get();
+          $data['produk_reservasi'] = $builder->getResultArray();
+
+          return view('pesanan/cetak', $data);
      }
 }

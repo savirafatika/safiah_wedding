@@ -10,7 +10,7 @@ use App\Models\ReservasiModel;
 use CodeIgniter\RESTful\ResourcePresenter;
 use Config\Database;
 
-class Reservasi extends ResourcePresenter
+class Pesanan extends ResourcePresenter
 {
     protected $reservasi, $db;
 
@@ -26,15 +26,20 @@ class Reservasi extends ResourcePresenter
      */
     public function index()
     {
-        $data['title'] = 'Reservasi';
-        $data['reservasi'] = $this->reservasi->findAll();
+        $data['title'] = 'Reservasi Pengguna';
+        $data['reservasi'] = $this->reservasi->where('member_id', user_id())->findAll();
 
-        $builder = $this->db->table('produk_reservasi as pr')->select('pr.*, pd.nama_produk, pd.harga as harga_produk')
+        $builder = $this->db->table('produk_reservasi as pr')->select('pr.*, pd.nama_produk, pd.harga as harga_produk, r.member_id')
             ->join('produk as pd', 'pd.id_produk = pr.produk_id')
+            ->join('reservasi as r', 'r.id_reservasi = pr.reservasi_id')
+            ->where('r.member_id', user_id())
             ->get();
         $data['produk_reservasi'] = $builder->getResult();
+        // echo '<pre>';
+        // print_r($data);
+        // die;
 
-        return view('reservasi/index', $data);
+        return view('pesanan/index', $data);
     }
 
     /**
@@ -60,7 +65,7 @@ class Reservasi extends ResourcePresenter
             ->get();
         $data['produk_reservasi'] = $builder->getResultArray();
 
-        return view('reservasi/show', $data);
+        return view('pesanan/show', $data);
     }
 
     /**
@@ -73,7 +78,7 @@ class Reservasi extends ResourcePresenter
         $produk = new ProdukModel();
         $data['title'] = 'Tambah Reservasi';
         $data['produk'] = $produk->findAll();
-        return view('reservasi/new', $data);
+        return view('pesanan/new', $data);
     }
 
     /**
@@ -188,7 +193,7 @@ class Reservasi extends ResourcePresenter
         }
         // Success!
         session()->setFlashdata('message', 'Berhasil membuat reservasi baru. ' . $hadiahIdNotFound . $hadiahNotActive);
-        return redirect()->to(base_url('admin/reservasi'));
+        return redirect()->to(base_url('user/reservasi_pengguna'));
     }
 
     /**
@@ -241,6 +246,6 @@ class Reservasi extends ResourcePresenter
     {
         $this->reservasi->where('id_reservasi', $id_reservasi)->delete();
         session()->setFlashdata('message', 'Berhasil menghapus reservasi');
-        return redirect()->to(base_url('admin/reservasi'));
+        return redirect()->to(base_url('user/reservasi_pengguna'));
     }
 }

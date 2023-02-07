@@ -40,9 +40,11 @@ class Admin extends BaseController
      public function cetak_reservasi($id_reservasi = null)
      {
           $data['title'] = 'Cetak Reservasi';
-          $data['reservasi'] = $this->reservasi->join('users', 'users.id = reservasi.member_id')
-               ->join('hadiah', 'hadiah.id_hadiah = reservasi.hadiah_id')
-               ->where('id_reservasi', $id_reservasi)->first();
+          $data['reservasi'] = $this->reservasi->select('reservasi.*, users.*, hadiah.*, reservasi.created_at as tgl_reservasi')
+               ->join('users', 'users.id = reservasi.member_id', 'left')
+               ->join('hadiah', 'hadiah.id_hadiah = reservasi.hadiah_id', 'left')
+               ->where('id_reservasi', $id_reservasi)
+               ->first();
 
           $builder = $this->db->table('produk_reservasi as pr')->select('pr.*, pd.nama_produk, pd.harga as harga_produk, r.potongan_harga, r.total_bayar')
                ->join('reservasi as r', 'r.id_reservasi = pr.reservasi_id')

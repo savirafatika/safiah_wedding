@@ -59,7 +59,7 @@
                     </li>
                <?php endif; ?>
                <li <?= ($getSegment2 === 'reservasi_pengguna') ? 'class="active"' : '' ?>>
-                    <a class="nav-link" href="<?= route_to('reservasi_pengguna'); ?>"><i class="fas fa-clipboard-list"></i> <span>Reservasi Pengguna</span></a>
+                    <a class="nav-link" href="<?= base_url('user/reservasi_pengguna'); ?>"><i class="fas fa-clipboard-list"></i> <span>Reservasi Pengguna</span></a>
                </li>
                <li <?= ($getSegment2 === 'hadiah_pengguna') ? 'class="active"' : '' ?>>
                     <a class="nav-link" href="<?= route_to('hadiah_pengguna'); ?>"><i class="fas fa-box-open"></i> <span>Klaim Hadiah Pengguna</span></a>

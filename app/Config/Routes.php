@@ -67,9 +67,10 @@ $routes->group('user', static function ($routes) {
     $routes->get('profil', 'User::profil', ['as' => 'profil']);
     $routes->post('gantipas_pengguna', 'User::gantipas_pengguna', ['as' => 'gantipas_pengguna']);
     $routes->get('galeri_produk', 'User::index', ['as' => 'galeri']);
-    $routes->get('reservasi_pengguna', 'User::reservasi', ['as' => 'reservasi_pengguna']);
     $routes->get('hadiah_pengguna', 'User::klaim_hadiah', ['as' => 'hadiah_pengguna']);
     $routes->post('klaim_hadiah_pengguna', 'User::tambah_klaim', ['as' => 'tambah_klaim_hadiah']);
+    $routes->presenter('reservasi_pengguna', ['controller' => 'pesanan']);
+    $routes->get('faktur_cetak/(:num)', 'User::cetak_reservasi/$1', ['as' => 'cetak_reservasi_pengguna']);
 });
 
 

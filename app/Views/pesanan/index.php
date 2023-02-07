@@ -5,7 +5,7 @@
 <div class="main-content">
      <section class="section">
           <div class="section-header">
-               <h1>Daftar Reservasi</h1>
+               <h1>Daftar Reservasi Pengguna</h1>
           </div>
 
           <div class="section-body">
@@ -31,8 +31,8 @@
                     <div class="col-12">
                          <div class="card">
                               <div class="card-header">
-                                   <a href="<?= base_url('admin/reservasi/new'); ?>" class="btn btn-primary btn-icon icon-left" style="border-radius: 5px;">
-                                        <i class="fas fa-plus"> Buat reservasi baru</i>
+                                   <a href="<?= base_url('user/reservasi_pengguna/new'); ?>" class="btn btn-primary btn-icon icon-left" style="border-radius: 5px;">
+                                        <i class="fas fa-plus"> Buat reservasi</i>
                                    </a>
                               </div>
                               <div class="card-body">
@@ -91,9 +91,9 @@
                                                             <td>Rp. <?= number_format($r['potongan_harga'], 0, '', '.'); ?></td>
                                                             <td>Rp. <?= number_format($r['total_bayar'], 0, '', '.'); ?></td>
                                                             <td>
-                                                                 <a href="<?= base_url('admin/reservasi/show/' . $r['id_reservasi']); ?>" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Lihat Faktur" id="sw"><i class="fas fa-eye"></i></a>
-                                                                 <a href="<?= base_url('admin/faktur_cetak/' . $r['id_reservasi']); ?>" class="btn btn-outline-success" target="blank"><i class="fas fa-print"></i></a>
-                                                                 <a href="<?= base_url('admin/reservasi/remove/' . $r['id_reservasi']); ?>" class="btn btn-danger buttonDelete" data-toggle="tooltip" data-placement="top" title="Hapus Reservasi"><i class="fas fa-trash"></i></a>
+                                                                 <a href="<?= base_url('user/reservasi_pengguna/show/' . $r['id_reservasi']); ?>" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Lihat Faktur"><i class="fas fa-eye"></i></a>
+                                                                 <a href="<?= base_url('user/faktur_cetak/' . $r['id_reservasi']); ?>" class="btn btn-outline-success" target="blank"><i class="fas fa-print"></i></a>
+                                                                 <a href="<?= base_url('user/reservasi_pengguna/remove/' . $r['id_reservasi']); ?>" class="btn btn-danger buttonDelete" data-toggle="tooltip" data-placement="top" title="Hapus Reservasi"><i class="fas fa-trash"></i></a>
                                                             </td>
                                                        </tr>
                                                   <?php endforeach; ?>

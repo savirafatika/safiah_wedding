@@ -6,7 +6,7 @@
      <section class="section">
           <div class="section-header">
                <div class="section-header-back">
-                    <a href="<?= base_url('admin/reservasi') ?>" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
+                    <a href="<?= base_url('user/reservasi_pengguna') ?>" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
                </div>
                <h1>Faktur #SW<?= $reservasi['id_reservasi']; ?></h1>
           </div>
