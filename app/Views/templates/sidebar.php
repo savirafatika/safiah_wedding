@@ -44,7 +44,7 @@
                <?php endif; ?>
                <?php if (in_groups(['superadmin', 'admin'])) : ?>
                     <li <?= ($getSegment2 === 'reservasi') ? 'class="active"' : '' ?>>
-                         <a href="<?= route_to('reservasi'); ?>" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> <span>Reservasi</span></a>
+                         <a href="<?= base_url('admin/reservasi'); ?>" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> <span>Reservasi</span></a>
                     </li>
                     <li <?= ($getSegment2 === 'klaim_hadiah') ? 'class="active"' : '' ?>>
                          <a href="<?= route_to('klaim_hadiah'); ?>" class="nav-link"><i class="fas fa-money-bill"></i> <span>Klaim Hadiah</span></a>

@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class HadiahModel extends Model
+class ProdukReservasiModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'hadiah';
-    protected $primaryKey       = 'id_hadiah';
+    protected $table            = 'produk_reservasi';
+    protected $primaryKey       = 'id_produk_reservasi';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_hadiah', 'nama_hadiah', 'jenis_hadiah', 'nilai_hadiah', 'status', 'jml_hari_berlaku', 'kode_hadiah', 'created_at', 'updated_at'];
+    protected $allowedFields    = ['id_produk_reservasi', 'reservasi_id', 'produk_id', 'qty', 'subtotal', 'created_at', 'updated_at'];
 
     // Dates
     protected $useTimestamps = true;
@@ -25,8 +25,17 @@ class HadiahModel extends Model
 
     // Validation
     protected $validationRules      = [
-        'nama_hadiah' => [
-            'label' => 'Nama Hadiah',
+        'reservasi_id' => [
+            'label' => 'ID Reservasi',
+            'rules' => 'required'
+        ],
+        'produk_id' => [
+            'label' => 'Produk',
+            'rules' => 'required',
+            'errors' => 'Produk harus dipilih.',
+        ],
+        'qty' => [
+            'label' => 'Jumlah pesanan',
             'rules' => 'required'
         ]
     ];

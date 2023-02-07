@@ -58,7 +58,8 @@ $routes->group('superadmin', ['filter' => 'role:superadmin'], static function ($
 });
 
 $routes->group('admin', ['filter' => 'role:admin,superadmin'], static function ($routes) {
-    $routes->get('reservasi', 'Admin::index', ['as' => 'reservasi']);
+    $routes->presenter('reservasi', ['controller' => 'reservasi']);
+    $routes->get('faktur_cetak/(:num)', 'Admin::cetak_reservasi/$1', ['as' => 'cetak_reservasi']);
     $routes->get('klaim_hadiah', 'Admin::daftar_klaim_hadiah', ['as' => 'klaim_hadiah']);
 });
 

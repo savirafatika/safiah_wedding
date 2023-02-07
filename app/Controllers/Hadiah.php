@@ -64,6 +64,7 @@ class Hadiah extends ResourcePresenter
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
+        $code = $this->uniqKodeHadiah(6);
         $jenis_hadiah = $this->request->getPost('jenis_hadiah');
         $nilai_hadiah = 'khusus';
         $status = $this->request->getPost('status');
@@ -79,6 +80,7 @@ class Hadiah extends ResourcePresenter
 
         $allowedPostFields = [
             'nama_hadiah' => $this->request->getPost('nama_hadiah'),
+            'kode_hadiah' => $code,
             'jenis_hadiah' => $jenis_hadiah != '' ? $jenis_hadiah : 'khusus',
             'nilai_hadiah' => $nilai_hadiah != '' ? $nilai_hadiah : 'belum ada nilai / deskripsi hadiah',
             'status' => $status != '' ? $status : 'off',
@@ -182,5 +184,18 @@ class Hadiah extends ResourcePresenter
 
         session()->setFlashdata('message', 'Berhasil menghapus hadiah');
         return redirect()->to(base_url('superadmin/hadiah'));
+    }
+
+    function uniqKodeHadiah($lenght = 6)
+    {
+        // uniqid gives 6 chars, but you could adjust it to your needs.
+        if (function_exists("random_bytes")) {
+            $bytes = random_bytes(ceil($lenght / 2));
+        } elseif (function_exists("openssl_random_pseudo_bytes")) {
+            $bytes = openssl_random_pseudo_bytes(ceil($lenght / 2));
+        } else {
+            throw new Exception("no cryptographically secure random function available");
+        }
+        return substr(bin2hex($bytes), 0, $lenght);
     }
 }

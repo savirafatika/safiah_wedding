@@ -75,7 +75,8 @@
                                         </table> <br>
                                         <h7>
                                              Masa berlaku: <?= $h['jml_hari_berlaku']; ?> hari
-                                        </h7>
+                                        </h7><br><br>
+                                        Kode Hadiah: <h4><?= $h['kode_hadiah']; ?></h4>
                                         <form class="needs-validation" novalidate="" action="<?= route_to('tambah_klaim_hadiah'); ?>" method="post">
                                              <?= csrf_field(); ?>
                                              <div style="float: right;">
@@ -137,7 +138,8 @@
                                              $tanggal_selesai_berlaku = date_format(date_create($k['selesai_berlaku']), "d M Y H:i:s");
                                              ?>
                                              Berakhir s/d: <?= $tanggal_selesai_berlaku; ?>
-                                        </h7>
+                                        </h7><br><br>
+                                        Kode Hadiah: <h4><?= $k['kode_hadiah']; ?></h4>
                                    </div>
                               </div>
                          </div>

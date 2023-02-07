@@ -44,6 +44,7 @@
                                                             #
                                                        </th>
                                                        <th>Nama Hadiah</th>
+                                                       <th>Kode Hadiah</th>
                                                        <th>Jenis Hadiah</th>
                                                        <th>Nilai/Keterangan Hadiah</th>
                                                        <th>Status</th>
@@ -57,6 +58,7 @@
                                                        <tr>
                                                             <td><?= $i++; ?></td>
                                                             <td><?= $h['nama_hadiah']; ?></td>
+                                                            <td><b><?= $h['kode_hadiah']; ?></b></td>
                                                             <td>
                                                                  <?php
                                                                  if ($h['jenis_hadiah'] == 'diskon_persen') {

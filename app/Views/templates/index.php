@@ -12,6 +12,7 @@
      <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/fontawesome/css/all.min.css">
 
      <!-- CSS Libraries -->
+     <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/bootstrap-daterangepicker/daterangepicker.css">
      <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/datatables/datatables.min.css">
      <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
      <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
@@ -114,6 +115,7 @@
      <script src="<?= base_url(); ?>/assets/js/stisla.js"></script>
 
      <!-- JS Libraies -->
+     <script src="<?= base_url(); ?>/assets/modules/bootstrap-daterangepicker/daterangepicker.js"></script>
      <script src="<?= base_url(); ?>/assets/modules/cleave-js/dist/cleave.min.js"></script>
      <script src="<?= base_url(); ?>/assets/modules/cleave-js/dist/addons/cleave-phone.us.js"></script>
      <script src="<?= base_url(); ?>/assets/modules/datatables/datatables.min.js"></script>
@@ -141,6 +143,7 @@
 
                $('.diskon_rupiah').hide();
                $('.diskon_persen').hide();
+               $('.tabelProduk').hide();
 
                // galerry filter
                var selectedClass = "";
@@ -212,12 +215,12 @@
                $('select.select2#jenis_hadiah').select2({
                     placeholder: "Pilih Jenis Hadiah",
                     allowClear: true,
-               })
-               // .on('change', function(e) {
-               //      var jenis_hadiah = $(this).val();
-               //      console.log('barusan select: ' + jenis_hadiah);
-               //      $('.khusus, .diskon_rupiah, .diskon_persen').val('');
-               // });
+               });
+
+               $('select.select2#produk_reservasi').select2({
+                    placeholder: "Pilih Produk Reservasi",
+                    allowClear: true,
+               });
 
                $('#jenis_hadiah').on('select2:select', function(e) {
                     var data = e.params.data.id;
@@ -236,6 +239,48 @@
                          $('.diskon_rupiah').hide();
                          $('.diskon_persen').hide();
                     }
+               });
+
+               $('#produk_reservasi').on('select2:select', function(e) {
+                    var dataId = e.params.data.id;
+                    var dataText = e.params.data.text;
+                    console.log(dataId);
+
+                    var tr = '<tr class="' + dataId + '">' +
+                         '<td>' + dataText + '</td>' +
+                         '<td><input type="number" class="form-control' +
+                         '<?php if (session('errors.qty')) : ?>' + 'is-invalid' + '<?php endif ?>' + '" name="qty[]" id="qty" placeholder="0">' +
+                         '<?php if (session('errors.qty')) : ?>' +
+                         '<div class="invalid-feedback">' +
+                         '<?= session('errors.qty') ?>' +
+                         '</div>' +
+                         '<?php endif ?>' +
+                         '</td>' +
+                         '<tr>';
+
+                    $('.tabelProduk').show();
+                    $('.tabelProduk').find('tbody').append(tr);
+               });
+
+               $('#produk_reservasi').on('select2:unselect', function(e) {
+                    var dataId = e.params.data.id;
+                    var dataText = e.params.data.text;
+                    console.log(dataId);
+
+                    var tr = '<tr class="' + dataId + '">' +
+                         '<td>' + dataText + '</td>' +
+                         '<td><input type="number" class="form-control' +
+                         '<?php if (session('errors.qty')) : ?>' + 'is-invalid' + '<?php endif ?>' + '" name="qty[]" id="qty" placeholder="0">' +
+                         '<?php if (session('errors.qty')) : ?>' +
+                         '<div class="invalid-feedback">' +
+                         '<?= session('errors.qty') ?>' +
+                         '</div>' +
+                         '<?php endif ?>' +
+                         '</td>' +
+                         '<tr>';
+
+                    $('.tabelProduk').show();
+                    $('.' + dataId).remove();
                });
 
                $('form').each(function() {
