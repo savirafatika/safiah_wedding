@@ -3,6 +3,9 @@
 namespace App\Controllers;
 
 use App\Models\KlaimHadiahModel;
+use App\Models\ProdukReservasiModel;
+use App\Models\ReservasiModel;
+use CodeIgniter\Database\RawSql;
 use Config\Database;
 use Myth\Auth\Models\UserModel;
 use Myth\Auth\Models\GroupModel;
@@ -23,7 +26,67 @@ class Superadmin extends BaseController
 
      public function index()
      {
+          $reservasiModel = new ReservasiModel();
+          $produkReservasiModel = new ProdukReservasiModel();
+
+          $countTodayStatReservasi = $reservasiModel->like('created_at', date('Y-m-d'))->countAllResults();
+          $countThisMonthStatReservasi = $reservasiModel->like('created_at', date('Y-m'))->countAllResults();
+          $countThisYearStatReservasi = $reservasiModel->like('created_at', date('Y'))->countAllResults();
+          $countAllStatReservasi = $reservasiModel->countAll();
+
+          $countTodayStatMember = $this->db->table('auth_groups_users as a')->join('auth_groups as g', 'g.id = a.group_id')->join('users as u', 'u.id = a.user_id')->where('g.name', 'member')->like('u.created_at', date('Y-m-d'))->countAllResults();
+          $countThisMonthStatMember = $this->db->table('auth_groups_users as a')->join('auth_groups as g', 'g.id = a.group_id')->join('users as u', 'u.id = a.user_id')->where('g.name', 'member')->like('u.created_at', date('Y-m'))->countAllResults();
+          $countThisYearStatMember = $this->db->table('auth_groups_users as a')->join('auth_groups as g', 'g.id = a.group_id')->join('users as u', 'u.id = a.user_id')->where('g.name', 'member')->like('u.created_at', date('Y'))->countAllResults();
+          $countAllStatMember = $this->db->table('auth_groups_users as a')->join('auth_groups as g', 'g.id = a.group_id')->join('users as u', 'u.id = a.user_id')->where('g.name', 'member')->countAll();
+
+          $query1 = $produkReservasiModel->select('sum(qty) as sumQuantities')->like('created_at', date('Y-m-d'))->first();
+          $query2 = $produkReservasiModel->select('sum(qty) as sumQuantities')->like('created_at', date('Y-m'))->first();
+          $query3 = $produkReservasiModel->select('sum(qty) as sumQuantities')->like('created_at', date('Y'))->first();
+          $query4 = $produkReservasiModel->select('sum(qty) as sumQuantities')->first();
+
+          $queryKategoriProdukReservasi = $this->db->table('produk_reservasi as pr')
+               ->join('produk as pd', 'pd.id_produk = pr.produk_id', 'left')
+               ->join('kategori as kg', 'kg.id_kategori = pd.kategori_id', 'left')
+               ->select('kg.nama_kategori, ' . new RawSql('COUNT(*) as total'))
+               ->distinct()
+               ->groupBy('kg.nama_kategori')
+               ->orderBy('total', 'DESC')
+               ->get();
+
+          $queryProdukTerlaris = $this->db->table('produk_reservasi as pr')
+               ->join('produk as pd', 'pd.id_produk = pr.produk_id', 'left')
+               ->select('pd.nama_produk, pd.foto_produk, ' . new RawSql('SUM(pr.qty) as jumlah'))
+               ->distinct()
+               ->groupBy('pd.nama_produk, pd.foto_produk')
+               ->orderBy('jumlah', 'DESC')
+               ->limit(4)
+               ->get();
+
           $data['title'] = 'Dashboard';
+          $data['countTodayStatReservasi'] = $countTodayStatReservasi;
+          $data['countThisMonthStatReservasi'] = $countThisMonthStatReservasi;
+          $data['countThisYearStatReservasi'] = $countThisYearStatReservasi;
+          $data['countAllStatReservasi'] = $countAllStatReservasi;
+          $data['countTodayStatMember'] = $countTodayStatMember;
+          $data['countThisMonthStatMember'] = $countThisMonthStatMember;
+          $data['countThisYearStatMember'] = $countThisYearStatMember;
+          $data['countAllStatMember'] = $countAllStatMember;
+          $data['countTodayStatProdukReservasi'] = $query1['sumQuantities'];
+          $data['countThisMonthProdukReservasi'] = $query2['sumQuantities'];
+          $data['countThisYearProdukReservasi'] = $query3['sumQuantities'];
+          $data['countAllProdukReservasi'] = $query4['sumQuantities'];
+          $data['kategoriProdukPopuler'] = $queryKategoriProdukReservasi->getResultArray();
+          $data['produkTerlaris'] = $queryProdukTerlaris->getResultArray();
+          $data['totalKategoriProdukPopuler'] = 0;
+
+          foreach ($data['kategoriProdukPopuler'] as $value) {
+               $data['totalKategoriProdukPopuler'] += $value['total'];
+          }
+
+          // echo '<pre>';
+          // print_r($data['produkTerlaris']);
+          // die;
+
           return view('superadmin/index', $data);
      }
 

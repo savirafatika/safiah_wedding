@@ -21,7 +21,9 @@
      <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/codemirror/lib/codemirror.css">
      <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/codemirror/theme/duotone-dark.css">
      <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
-
+     <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
+     <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
+     <link rel="stylesheet" href="<?= base_url(); ?>/assets/modules/jqvmap/dist/jqvmap.min.css">
      <!-- Template CSS -->
      <link rel="stylesheet" href="<?= base_url(); ?>/assets/css/style.css">
      <link rel="stylesheet" href="<?= base_url(); ?>/assets/css/components.css">
@@ -128,6 +130,10 @@
      <script src="<?= base_url(); ?>/assets/modules/codemirror/mode/javascript/javascript.js"></script>
      <script src="<?= base_url(); ?>/assets/modules/upload-preview/assets/js/jquery.uploadPreview.min.js"></script>
      <script src="<?= base_url(); ?>/assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+     <script src="<?= base_url(); ?>/assets/modules/jquery.sparkline.min.js"></script>
+     <script src="<?= base_url(); ?>/assets/modules/chart.min.js"></script>
+     <script src="<?= base_url(); ?>/assets/modules/owlcarousel2/dist/owl.carousel.min.js"></script>
+     <script src="<?= base_url(); ?>/assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
 
      <!-- Page Specific JS File -->
      <script src="<?= base_url(); ?>/assets/js/page/modules-datatables.js"></script>

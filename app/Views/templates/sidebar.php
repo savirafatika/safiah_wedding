@@ -1,10 +1,10 @@
 <div class="main-sidebar sidebar-style-2">
      <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-               <a href="index.html">Safiah_Wedding</a>
+               <a href="<?= route_to('dashboard'); ?>">Safiah_Wedding</a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
-               <a href="index.html">SW</a>
+               <a href="<?= route_to('dashboard'); ?>">SW</a>
           </div>
           <ul class="sidebar-menu">
                <?php
