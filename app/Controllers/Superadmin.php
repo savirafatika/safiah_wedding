@@ -71,10 +71,10 @@ class Superadmin extends BaseController
           $data['countThisMonthStatMember'] = $countThisMonthStatMember;
           $data['countThisYearStatMember'] = $countThisYearStatMember;
           $data['countAllStatMember'] = $countAllStatMember;
-          $data['countTodayStatProdukReservasi'] = $query1['sumQuantities'];
-          $data['countThisMonthProdukReservasi'] = $query2['sumQuantities'];
-          $data['countThisYearProdukReservasi'] = $query3['sumQuantities'];
-          $data['countAllProdukReservasi'] = $query4['sumQuantities'];
+          $data['countTodayStatProdukReservasi'] = $query1['sumQuantities'] ?? 0;
+          $data['countThisMonthProdukReservasi'] = $query2['sumQuantities'] ?? 0;
+          $data['countThisYearProdukReservasi'] = $query3['sumQuantities'] ?? 0;
+          $data['countAllProdukReservasi'] = $query4['sumQuantities'] ?? 0;
           $data['kategoriProdukPopuler'] = $queryKategoriProdukReservasi->getResultArray();
           $data['produkTerlaris'] = $queryProdukTerlaris->getResultArray();
           $data['totalKategoriProdukPopuler'] = 0;
