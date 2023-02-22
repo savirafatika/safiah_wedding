@@ -79,14 +79,18 @@
     <div class="section no-pad-bot">
       <div class="container">
         <br><br>
-        <h1 class="header center deep-purple-text text-lighten-2">Parallax Template</h1>
+        <h1 class="header center deep-purple-text text-lighten-1" style="font-weight: 500; text-shadow: 15px;">Hai, Kepoin WO Kami Yuk!</h1>
         <div class="row center">
-          <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>
+          <h5 class="header col s12" style="font-weight: 600; text-shadow: 15px;">Terencana, Tepat Waktu dan Bisa Diandalkan untuk Mengawal Hari Bahagiamu</h5>
+        </div>
+        <div class="row center">
+          <a href="<?= route_to('order'); ?>" id="download-button" class="btn-large waves-effect waves-light deep-purple lighten-1">Reservasi Sekarang</a>
         </div>
         <br><br>
+
       </div>
     </div>
-    <div class="parallax"><img src="<?= base_url(); ?>/assets/img-materialize/background1.jpg" alt="Unsplashed background img 1"></div>
+    <div style="background-color: black; opacity: 80%;" class="parallax"><img src="<?= base_url(); ?>/assets/img-materialize/c.jpg" alt="Unsplashed background img 1"></div>
   </div>
 
   <div class="container">
@@ -136,27 +140,25 @@
     <div class="container">
       <div class="row">
         <div class="col l6 s12">
-          <h5 class="white-text">Company Bio</h5>
-          <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
-
-
+          <h5 class="white-text">Safiah Wedding</h5>
+          <p class="grey-text text-lighten-4">Kami menyediakan jasa rias acara, sewa busana pengantin dan sewa properti WO. Semakin meluasnya bisnis kami, kami membutuhkan alat sebagai media bertukar informasi dengan pelanggan. Dibuatlah website ini sekaligus menunjang kemudakan transaksi pemesanan pelanggan.</p>
         </div>
         <div class="col l3 s12">
-          <h5 class="white-text">Settings</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
+          <h5 class="white-text">Fitur</h5>
+          <ul style="text-transform: uppercase;">
+            <li><a class="white-text" href="<?= route_to('register'); ?>">Daftar Member</a></li>
+            <li><a class="white-text" href="<?= route_to('order'); ?>">Reservasi</a></li>
+            <li><a class="white-text" href="<?= route_to('galeri_sw'); ?>">Produk Kami</a></li>
+            <li><a class="white-text" href="<?= route_to('login'); ?>">Masuk Member Area</a></li>
           </ul>
         </div>
         <div class="col l3 s12">
-          <h5 class="white-text">Connect</h5>
+          <h5 class="white-text">Kontak Kami</h5>
           <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
+            <li><a class="white-text" href="https://goo.gl/maps/PKLgRLhox9YvUs3V8"><i class="tiny material-icons">location_on</i> Jalan Arif Rahman Hakim, Desa Tuan-Tuan, Kec. Benua Kayong, Kota Ketapang, Kalimantan Barat, 78822</a></li>
+            <li><a class="white-text" href="#!"><i class="tiny material-icons">phone</i> 081344541714</a></li>
+            <li><a class="white-text" href="https://wa.me/6289698721891"><b>WA</b> 089698721891</a></li>
+            <li><a class="white-text" href="https://www.instagram.com/safiah_wedding/"><b>IG</b> @safiah_wedding</a></li>
           </ul>
         </div>
       </div>
