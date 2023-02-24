@@ -35,7 +35,7 @@
         <li><a href="<?= route_to('login'); ?>">Masuk</a></li>
         <li><a href="<?= route_to('register'); ?>">Daftar</a></li>
       </ul>
-      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger deep-purple-text"><i class="material-icons">menu</i></a>
     </div>
   </nav>
 
