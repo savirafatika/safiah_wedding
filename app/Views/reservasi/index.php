@@ -88,8 +88,8 @@
                                                                  ?>
                                                                  <?= $tglAcara; ?>
                                                             </td>
-                                                            <td>Rp. <?= number_format($r['potongan_harga'], 0, '', '.'); ?></td>
-                                                            <td>Rp. <?= number_format($r['total_bayar'], 0, '', '.'); ?></td>
+                                                            <td>Rp. <?= number_format((float)$r['potongan_harga'], 0, '', '.'); ?></td>
+                                                            <td>Rp. <?= number_format((float)$r['total_bayar'], 0, '', '.'); ?></td>
                                                             <td>
                                                                  <a href="<?= base_url('admin/reservasi/show/' . $r['id_reservasi']); ?>" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Lihat Faktur" id="sw"><i class="fas fa-eye"></i></a>
                                                                  <a href="<?= base_url('admin/faktur_cetak/' . $r['id_reservasi']); ?>" class="btn btn-outline-success" target="blank"><i class="fas fa-print"></i></a>
